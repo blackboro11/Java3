@@ -1,0 +1,147 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Iking Galz
+ */
+
+
+import java.util.Scanner;
+
+public class project {
+    public static void main(String a[])
+    {
+        Scanner iking = new Scanner(System.in);
+        
+            char yes='y';
+                while((yes=='y') || (yes=='Y')){
+                    
+                
+            
+     
+        System.out.println("Enter  number :");
+        
+        
+        int num =iking.nextInt();
+        int num1,num2,num3,mod1,mod2,mod3;
+       
+        //each item = element
+        //index
+        
+        String st1[] ={ " ","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"};
+        String st2[] ={ "","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"};
+        String st3[] ={ "Hundred","Thousand"};
+        String st4[] ={ "Ten","Eleven","Twelve","Thirteen","fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"};
+        String st5[] ={"Zero"};
+        
+        //1-19 numbers
+        if(num>0 && num<=20 )
+        {
+            System.out.println(st1[num]);
+        }
+        //ZERO
+        else if(num==0)
+        {
+            System.out.println(st5[num]);
+        }
+        //20-99 numbers
+        else if(num>=20 && num<=99) 
+        {
+            num1 =num/10;
+            mod1 =num%10;
+            
+            
+            System.out.println(st2[num1]+" "+st1[mod1]);
+
+        }
+        
+        //100-999 numbers
+        else if(num>=100 && num<=999) 
+        {
+            num1 = num/100; //1
+            mod1 = num%100; //.09
+            num2 = mod1/10; // 0
+            mod2 = mod1%10; // 9
+            
+            
+            // 110
+            if(num2==1 && mod2==0)
+            {
+                System.out.println(st1[num1]+" "+st3[0]+" "+st4[mod2]);
+            }
+            //last two digit = 0-9
+            //num+hundred
+            else if(num2==0 && mod2==0)
+            {
+                System.out.println(st1[num1]+" "+st3[0]+" ");
+            }
+            //num+0-9
+            else if(num2==0 && mod2>0)
+            {
+                System.out.println(st1[num1]+" "+st3[0]+" "+st1[mod2]);
+            }
+            //last two digit = 11 - 19
+            else if(num2==1 && mod2>0)
+            {
+                System.out.println(st1[num1]+" "+st3[0]+" "+st4[mod2]);
+            }
+            
+            //Last two digit = 20+
+            else if(mod1>=2)
+            {
+                System.out.println(st1[num1]+" "+st3[0]+" "+st2[num2]+" "+st1[mod2]);
+            }
+            
+        }
+        
+        //1000-9999 numbers
+        else if(num>=1000 && num<=9999)
+        {
+            //
+            num1 = num/1000; //
+            mod1 = num%1000; //   
+            num2 = mod1/100; //
+            mod2 = mod1%100; //
+            num3 = mod2/10; //
+            mod3 = mod2%10; //
+            
+            
+            
+           //num + thousand -> 1019
+            if(num2==0 && num3<=1)
+                {
+                System.out.println(st1[num1]+" "+st3[1]+" "+st1[mod2]);    
+                }
+            //num + thousand + [zero]hundred +20-99 -> 1099
+            else if(num2==0 && num3>=2)
+            {
+                System.out.println(st1[num1]+" "+st3[1]+" "+st2[num3]+" "+st1[mod3]);
+                            //1           thousand            20-99
+            }
+            //num + thousand + hundred +11-19 -> 1111-1119
+            else if(num2>=1 && num3>=0 && num3<=1)
+            {
+                System.out.println(st1[num1]+" "+st3[1]+" "+st1[num2]+" "+st3[0]+" "+st1[mod2]);
+                                  //1           thousand        1           hundred     1-19
+            }           
+            //num + thousand + hundred + 20-99 -> 1020+
+            else if(num2>=1 && num3>1)
+            {
+                System.out.println(st1[num1]+" "+st3[1]+" "+st1[num2]+" "+st3[0]+" "+st2[num3]+" "+st1[mod3]);
+            }
+        }
+        else
+        {
+            System.out.println("Error, input another number: ");
+        }
+        
+        System.out.println(" ");
+        System.out.println("Do you want to input another number Y/N? ");
+        yes=iking.next().charAt(0); 
+    }
+    }
+}
