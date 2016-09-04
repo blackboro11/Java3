@@ -1,0 +1,143 @@
+import java.awt.Font;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.Random;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
+ 
+public class JNP extends JFrame implements ActionListener, ItemListener{
+
+	JLabel lblHeaders = new JLabel("JACK N POY");
+	JLabel lblPSubHeaders = new JLabel("Player");
+	JLabel lblCSubHeaders = new JLabel("Computer");
+	JLabel lblPScores = new JLabel("Player pts: ");
+	JLabel lblCScores = new JLabel("Computer pts: ");
+	
+	Font fHead = new Font("Electronica", Font.BOLD, 30);
+	Font fPSubHead = new Font("Courier New", Font.PLAIN, 15);
+	Font fScores = new Font("Courier New", Font.PLAIN, 11);
+
+	JButton bGo = new JButton("Roll");
+	JButton bRes = new JButton("Re-Start");
+	
+	JRadioButton[] rdoPTurn = new JRadioButton[3];
+	JRadioButton[] rdoCTurn = new JRadioButton[3];
+	
+	ButtonGroup bgRdoP = new ButtonGroup();
+	ButtonGroup bgRdoC = new ButtonGroup();
+	
+	String[] strTurn = {"Rock", "Paper", "Scissor"};
+	Integer[] turnLoc = {80,110,140};
+	
+	String playerPick;
+	String computerPick;
+	String strName;
+	
+	int p = 0;
+	int c = 0;
+	
+	Random rnd = new Random();
+
+	public JNP(){
+		//setPlayer();
+		setJLabel();
+		setJRadio();
+		setJButton();
+		setJPane();
+		setJFrame();
+	}
+
+	private void setJLabel(){
+		lblHeaders.setSize(200,50);
+		lblHeaders.setLocation(50,0);
+		lblHeaders.setFont(fHead);
+		
+		lblPSubHeaders.setSize(100,30);
+		lblPSubHeaders.setLocation(30,50);
+		lblPSubHeaders.setFont(fPSubHead);
+		
+		lblCSubHeaders.setSize(100,30);
+		lblCSubHeaders.setLocation(185,50);
+		lblCSubHeaders.setFont(fPSubHead);
+		
+		lblPScores.setSize(150,30);
+		lblPScores.setLocation(15,180);
+		lblPScores.setFont(fScores);
+		lblPScores.setText(lblPScores.getText() + p);
+		
+		lblCScores.setSize(150,30);
+		lblCScores.setLocation(170,180);
+		lblCScores.setFont(fScores);
+		lblCScores.setText(lblCScores.getText() + c);
+	}
+	
+	private void setJRadio(){
+		for(int i=0; i<strTurn.length; i++){
+			rdoPTurn[i] = new JRadioButton(strTurn[i], false);
+			rdoPTurn[i].setSize(80,30);
+			rdoPTurn[i].setLocation(20, turnLoc[i]);
+			rdoPTurn[i].addItemListener(this);
+			
+			rdoCTurn[i] = new JRadioButton(strTurn[i], false);
+			rdoCTurn[i].setSize(80,30);
+			rdoCTurn[i].setLocation(185, turnLoc[i]);
+			rdoCTurn[i].setEnabled(false);
+			
+			bgRdoP.add(rdoPTurn[i]);
+			bgRdoC.add(rdoCTurn[i]);
+		}
+	}
+	
+	private void setJButton(){
+		bGo.setSize(100,20);
+		bGo.setLocation(40,230);
+		bGo.setEnabled(false);
+		
+		bRes.setSize(100,20);
+		bRes.setLocation(150,230);
+		
+		bGo.addActionListener(this);
+		bRes.addActionListener(this);
+	}
+
+
+	private void setJFrame(){
+		setTitle("Jack N Poy by IKING THE GENTLEMAN.");
+		setSize(300,300);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+		setVisible(true);
+	}
+	
+	
+	private void setJPane(){
+		getContentPane().setLayout(null);
+		getContentPane().add(lblHeaders);
+		getContentPane().add(lblPSubHeaders);
+		getContentPane().add(lblCSubHeaders);
+		getContentPane().add(lblPScores);
+		getContentPane().add(lblCScores);
+		
+		getContentPane().add(bGo);
+		getContentPane().add(bRes);
+		
+		for(int i=0; i<strTurn.length; i++){
+			getContentPane().add(rdoPTurn[i]);
+			getContentPane().add(rdoCTurn[i]);
+		}
+	}
+	
+
+    public static void main(String[] args) {
+    	new JNP();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent ie) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    } 
+}
