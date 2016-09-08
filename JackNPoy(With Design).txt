@@ -1,0 +1,257 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.Random;
+ 
+public class JackNPoy extends JFrame implements ActionListener, ItemListener{
+
+	JLabel lblHeaders = new JLabel("JACK N POY");       
+	JLabel lblPSubHeaders = new JLabel();
+	JLabel lblCSubHeaders = new JLabel("Computer");
+	JLabel lblPScores = new JLabel("Player pts: ");
+	JLabel lblCScores = new JLabel("Computer pts: ");
+        JLabel lblFooters = new JLabel("ENJOY");
+        JLabel lblFooters2 = new JLabel("PLAYING!!!");  
+	
+	Font fHead = new Font("Courier", Font.BOLD, 30);
+	Font fPSubHead = new Font("Courier", Font.BOLD, 20);
+        Font fCSubHead = new Font("Courier", Font.BOLD, 20);
+	Font fScores = new Font("Courier", Font.PLAIN, 11);
+
+	JButton bGo = new JButton("Roll");
+	JButton bAgain = new JButton("Re-Start");
+	
+	JRadioButton[] rdoPTurn = new JRadioButton[3];
+	JRadioButton[] rdoCTurn = new JRadioButton[3];
+	
+	ButtonGroup bgRdoP = new ButtonGroup();
+	ButtonGroup bgRdoC = new ButtonGroup();
+        
+	String[] strTurn = {"Rock", "Paper", "Scissor"};
+	Integer[] turnLoc = {170,200,230};
+	
+	String playerPick;
+	String computerPick;
+	String strName;
+	
+	int p = 0;
+	int c = 0;
+	
+	Random rnd = new Random();
+
+	public JackNPoy(){
+		setPlayer();
+		setJLabel();
+		setJRadio();
+		setJButton();
+		setJPane();
+		setJFrame();
+	}
+
+	private void setJLabel(){
+            
+		lblHeaders.setSize(200,100);
+		lblHeaders.setLocation(160,0);              
+		lblHeaders.setFont(fHead);
+                lblHeaders.setForeground(Color.WHITE);
+                
+		lblPSubHeaders.setSize(150,50);
+		lblPSubHeaders.setLocation(120,110);
+		lblPSubHeaders.setFont(fPSubHead);
+                lblPSubHeaders.setForeground(Color.WHITE);
+		//lblPSubHeaders.setBackground(Color.CYAN);
+                        
+		lblCSubHeaders.setSize(150,50);
+		lblCSubHeaders.setLocation(310,110);
+		lblCSubHeaders.setFont(fPSubHead);
+                lblCSubHeaders.setForeground(Color.WHITE);
+		
+		lblPScores.setSize(150,30);
+		lblPScores.setLocation(120,270);
+		lblPScores.setFont(fScores);
+                lblPScores.setForeground(Color.WHITE);
+		lblPScores.setText(lblPScores.getText() + p);
+		
+		lblCScores.setSize(150,30);
+		lblCScores.setLocation(310,270);
+		lblCScores.setFont(fScores);
+                lblCScores.setForeground(Color.WHITE);
+		lblCScores.setText(lblCScores.getText() + c);
+                
+                lblFooters.setSize(200,50);
+		lblFooters.setLocation(180,360);              
+		lblFooters.setFont(fHead);
+                lblFooters.setForeground(Color.WHITE);
+                
+                lblFooters2.setSize(200,50);
+		lblFooters2.setLocation(160,400);              
+		lblFooters2.setFont(fHead);
+                lblFooters2.setForeground(Color.WHITE);
+	}
+	
+	private void setJRadio(){
+                
+		for(int i=0; i<strTurn.length; i++){
+			rdoPTurn[i] = new JRadioButton(strTurn[i], false);
+			rdoPTurn[i].setSize(130,45);
+			rdoPTurn[i].setLocation(90, turnLoc[i]);
+			rdoPTurn[i].addItemListener(this);
+                        rdoPTurn[i].setBackground(Color.BLUE); //background Radio
+                        rdoPTurn[i].setForeground(Color.WHITE);
+			
+			rdoCTurn[i] = new JRadioButton(strTurn[i], false);
+			rdoCTurn[i].setSize(130,45);
+			rdoCTurn[i].setLocation(295, turnLoc[i]);
+			rdoCTurn[i].setEnabled(false);
+                        rdoCTurn[i].setBackground(Color.BLUE); //background Radio
+                        rdoCTurn[i].setForeground(Color.WHITE);//FONT
+			
+			bgRdoP.add(rdoPTurn[i]);
+			bgRdoC.add(rdoCTurn[i]);
+                        
+                        
+		}
+                
+                
+             
+	}
+	
+	private void setJButton(){
+		bGo.setSize(100,20);
+		bGo.setLocation(120,330);
+		bGo.setEnabled(false);
+		
+		bAgain.setSize(100,20);
+		bAgain.setLocation(270,330);
+		
+		bGo.addActionListener(this);
+		bAgain.addActionListener(this);
+	}
+
+
+	private void setJFrame(){
+		setTitle("JACK N POY CARPENTEROS & GALON");
+		setSize(500,500);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+		setVisible(true);
+                getContentPane().setBackground(Color.BLACK);
+                setLayout(new BorderLayout());
+                JLabel background=new JLabel(new ImageIcon("C:\\Users\\Francisca S. Legaspi\\Pictures\\images2.jpg"));
+                add(background);
+	}
+	
+	
+	private void setJPane(){
+		getContentPane().setLayout(null);
+		getContentPane().add(lblHeaders);
+		getContentPane().add(lblPSubHeaders);
+		getContentPane().add(lblCSubHeaders);
+		getContentPane().add(lblPScores);
+		getContentPane().add(lblCScores);
+		
+		getContentPane().add(bGo);
+		getContentPane().add(bAgain);
+                getContentPane().add(lblFooters);
+                getContentPane().add(lblFooters2);
+		
+		for(int i=0; i<strTurn.length; i++){
+			getContentPane().add(rdoPTurn[i]);
+			getContentPane().add(rdoCTurn[i]);
+		}
+	}
+	
+
+    public static void main(String[] args) {
+    	new JackNPoy();
+    }
+
+//SET PLAYER NAME
+	private void setPlayer(){
+		strName = JOptionPane.showInputDialog("Player name:");
+		strName = "" + strName.toUpperCase().charAt(0) + strName.substring(1).toLowerCase();
+		lblPSubHeaders.setText(strName);
+		JOptionPane.showMessageDialog(JackNPoy.this, "First player who get 10pts will be the winner! Goodluck! Have fun!");
+	}
+
+	public void clear(){
+		bgRdoP.clearSelection();
+		bgRdoC.clearSelection();
+		bGo.setEnabled(false);
+	}
+	
+	private void setWinner(){
+		JOptionPane.showMessageDialog(JackNPoy.this, "JACK N POY !");
+		if(playerPick.equals("Rock") && computerPick.equals("Paper")){
+			lblCScores.setText("Computer pts: " + (c+=1));
+			JOptionPane.showMessageDialog(null, "Points goes to Computer!");
+		}
+		else if(playerPick.equals("Rock") && computerPick.equals("Scissor")){
+			lblPScores.setText("Player pts: " + (p+=1));
+			JOptionPane.showMessageDialog(null, "Points goes to " + strName + "!");
+		}
+		else if(playerPick.equals("Paper") && computerPick.equals("Rock")){
+			lblPScores.setText("Player pts: " + (p+=1));
+			JOptionPane.showMessageDialog(null, "Points goes to " + strName + "!");
+		}
+		else if(playerPick.equals("Paper") && computerPick.equals("Scissor")){
+			lblCScores.setText("Computer pts: " + (c+=1));
+			JOptionPane.showMessageDialog(null, "Points goes to Computer!");
+		}
+		else if(playerPick.equals("Scissor") && computerPick.equals("Paper")){
+			lblPScores.setText("Player pts: " + (p+=1));
+			JOptionPane.showMessageDialog(null, "Points goes to " + strName + "!");
+		}
+		else if(playerPick.equals("Scissor") && computerPick.equals("Rock")){
+			lblCScores.setText("Computer pts: " + (c+=1));
+			JOptionPane.showMessageDialog(null, "Points goes to Computer!");
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "DRAW!");
+		}
+		
+		if(c == 10){
+			bAgain.setEnabled(true);
+			for(int i=0;i<strTurn.length; i++)
+				rdoPTurn[i].setEnabled(false);
+			JOptionPane.showMessageDialog(null, "You are such a loser, " + strName + "!!!");
+		}
+		else if(p == 10){
+			bAgain.setEnabled(true);
+			for(int i=0;i<strTurn.length; i++)
+				rdoPTurn[i].setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Congratulations! You won!" + strName + "!");
+		}
+		clear();
+	}
+    
+    public void actionPerformed(ActionEvent ae){
+    	if(ae.getSource() == bGo){
+    		int i = rnd.nextInt(3);
+    		rdoCTurn[i].setSelected(true);
+    		computerPick = rdoCTurn[i].getActionCommand();
+    		setWinner();
+    	}
+    	else{
+    		clear();
+    		p = c = 0;
+    		
+    		for(int i=0;i<strTurn.length; i++)
+				rdoPTurn[i].setEnabled(true);
+    		
+    		lblCScores.setText("Computer pts: " + c);
+			lblPScores.setText("Player pts: " + p);
+    	}
+    }
+    
+    public void itemStateChanged(ItemEvent ie){
+    	for(int i=0; i<strTurn.length; i++){
+    		if(rdoPTurn[i].isSelected()){
+    			playerPick = rdoPTurn[i].getActionCommand();
+    			bGo.setEnabled(true);
+    		}
+    	}
+    }
+}
